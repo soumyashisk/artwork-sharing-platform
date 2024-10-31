@@ -1,0 +1,5 @@
+.images-grid {
+  display: flex;
+  flex-wrap: wrap;
+  
+}

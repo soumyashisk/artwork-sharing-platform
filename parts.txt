@@ -1,0 +1,6 @@
+Image list view
+Image detail view
+Login/Register
+Upload image, title, description
+Delete image
+Profile settings
