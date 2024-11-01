@@ -1,5 +1,36 @@
 .images-grid {
   display: flex;
   flex-wrap: wrap;
-  
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0.5rem;
+}
+
+.grid-item {
+  width: 100%;
+  padding: 15px;
+}
+
+@media (min-width: 640px) {
+  .grid-item {
+    width: calc(100% / 2);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-item {
+    width: calc(100% / 3);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-item {
+    width: calc(100% / 4);
+  }
+}
+
+@media (min-width: 1536px) {
+  .grid-item {
+    width: calc(100% / 5);
+  }
 }

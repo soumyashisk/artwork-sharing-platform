@@ -11,38 +11,22 @@
     <script src="{% static 'js/uikit-icons.min.js' %}"></script>
   </head>
   <body>
-    <nav class="uk-navbar-container">
-      <div class="uk-container">
-        <div uk-navbar>
-          <div class="uk-navbar-left">
-            {% block back_button %}{% endblock back_button %}
+    <nav class="uk-navbar-container uk-padding-small">
+      <div uk-navbar>
+        <div class="uk-navbar-left">
+          {% block back_button %}{% endblock back_button %}
+        </div>
+        <div class="uk-navbar-center">
+          <div class="uk-navbar-item uk-logo">
+            {% block nav_title %}{% endblock nav_title %}
           </div>
-          <div class="uk-navbar-center">
-            <div class="uk-navbar-item uk-logo">
-              {% block nav_title %}{% endblock nav_title %}
-            </div>
-          </div>
-          <div class="uk-navbar-right">
-            <ul class="uk-navbar-nav">
-              <li>
-                <a href="#">Parent</a>
-                <div class="uk-navbar-dropdown">
-                  <ul class="uk-nav uk-navbar-dropdown-nav">
-                    <li class="uk-active"><a href="#">Active</a></li>
-                    <li><a href="#">Item</a></li>
-                    <li class="uk-nav-header">Header</li>
-                    <li><a href="#">Item</a></li>
-                    <li><a href="#">Item</a></li>
-                    <li class="uk-nav-divider"></li>
-                    <li><a href="#">Item</a></li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
+        </div>
+        <div class="uk-navbar-right">
+          <a href="#" class="uk-button uk-button-primary">Login</a>
+          <a href="#" class="uk-button uk-button-primary">Signup</a>
         </div>
       </div>
     </nav>
-    <div class="uk-section">{% block content %}{% endblock content %}</div>
+    <section>{% block content %}{% endblock content %}</section>
   </body>
 </html>

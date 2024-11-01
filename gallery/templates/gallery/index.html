@@ -1,10 +1,26 @@
-{% extends "gallery/base.html" %} {% block title %} Home {% endblock title %}
-{% comment %} {% block back_button %}
-<a href="" class="uk-button uk-button-secondary">
-  <span uk-icon="icon: arrow-left"></span>
-</a>
-{% endblock back_button %} {% endcomment %}
-{% block nav_title %} Home {% endblock nav_title %}
-{% block content %}
-<div class="images-grid"></div>
-{% endblock content %}
+{% extends 'gallery/base.html' %} {% block title %} Home {% endblock %}
+{% block back_button %}
+<a href="" class="uk-button uk-button-secondary"
+  ><span uk-icon="icon: arrow-left"></span
+></a>
+{% endblock %} {% block nav_title %} Home {% endblock %} {% block content %}
+<div class="images-grid">
+  {% for i in item %}
+  <div class="grid-item">
+    <img src="https://placehold.co/600x{{ i }}" alt="" />
+    <div class="voting">
+      <div class="vote"></div>
+      <div class="voting-btn-group">
+        <button class="up-vote">
+          <span uk-icon="icon: chevron-up"></span>
+        </button>
+        <button class="down-vote">
+          <span uk-icon="icon: chevron-down"></span>
+        </button>
+      </div>
+      <div class="votes-n"></div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
