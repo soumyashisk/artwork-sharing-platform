@@ -1,26 +1,22 @@
-{% extends 'gallery/base.html' %} {% block title %} Home {% endblock %}
-{% block back_button %}
-<a href="" class="uk-button uk-button-secondary"
-  ><span uk-icon="icon: arrow-left"></span
-></a>
-{% endblock %} {% block nav_title %} Home {% endblock %} {% block content %}
-<div class="images-grid">
-  {% for i in item %}
-  <div class="grid-item">
-    <img src="https://placehold.co/600x{{ i }}" alt="" />
-    <div class="voting">
-      <div class="vote"></div>
-      <div class="voting-btn-group">
-        <button class="up-vote">
-          <span uk-icon="icon: chevron-up"></span>
-        </button>
-        <button class="down-vote">
-          <span uk-icon="icon: chevron-down"></span>
-        </button>
+{% extends 'gallery/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+{% block nav_title %} Home {% endblock %}
+{% block content %}
+  <div class="masonry mx-auto">
+    {% for i in item %}
+    <div class="grid-item">
+      <img class="grid-img" src="https://placehold.co/600x{{ i }}" alt="" />
+      <div class="absolute inset-0 bg-gray-900 bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-400 grid place-items-center">
+        <div class="text-center w-full flex flex-col items-center gap-2">
+          <div class="text-4xl text-white mx-auto">1928</div>
+          <div class="flex gap-2">
+            <button class="size-10 p-1 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded"><img src="{% static "up.svg" %}" alt=""></button>
+            <button class="size-10 p-1 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded"><img class="rotate-180" src="{% static "up.svg" %}" alt=""></button>
+          </div>
+        </div>
       </div>
-      <div class="votes-n"></div>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
 {% endblock %}
