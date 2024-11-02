@@ -4,16 +4,23 @@
 {% block nav_title %} Home {% endblock %}
 {% block content %}
   <div class="masonry mx-auto">
-    {% for i in item %}
+    {% for artwork in artworks %}
     <div class="grid-item">
-      <img class="grid-img" src="https://placehold.co/600x{{ i }}" alt="" />
+      <img class="grid-img" src="{{ artwork.image.url }}" alt="" />
       <div class="absolute inset-0 bg-gray-900 bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-400 grid place-items-center">
         <div class="text-center w-full flex flex-col items-center gap-2">
           <div class="text-4xl text-white mx-auto">1928</div>
           <div class="flex gap-2">
-            <button class="size-10 p-1 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded"><img src="{% static "up.svg" %}" alt=""></button>
-            <button class="size-10 p-1 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded"><img class="rotate-180" src="{% static "up.svg" %}" alt=""></button>
+            <button class="size-10 p-1 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
+              <img src="{% static "up.svg" %}" alt="">
+            </button>
+            <button class="size-10 p-1 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
+              <img class="rotate-180" src="{% static "up.svg" %}" alt="">
+            </button>
           </div>
+          <a href="" class="text-white px-4 py-2 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
+            Details
+          </a>
         </div>
       </div>
     </div>

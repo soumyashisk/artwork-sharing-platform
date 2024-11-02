@@ -3,5 +3,5 @@ from . import views
 
 app_name = "gallery"
 urlpatterns = [
-    path("", views.index, name="home"),
+    path("", views.ArtworkListView.as_view(), name="home"),
 ]
