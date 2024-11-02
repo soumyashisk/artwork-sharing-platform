@@ -18,7 +18,7 @@
               <img class="rotate-180" src="{% static "up.svg" %}" alt="">
             </button>
           </div>
-          <a href="" class="text-white px-4 py-2 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
+          <a href="{% url "gallery:detail" artwork.id %}" class="text-white px-4 py-2 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
             Details
           </a>
         </div>

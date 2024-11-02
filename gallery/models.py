@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -11,5 +12,5 @@ class Artwork(models.Model):
     def __str__(self):
         return self.title
 
-        # def get_absolute_url(self):
-        #     return reverse("Artwork_detail", kwargs={"pk": self.pk})
+    def get_absolute_url(self):
+        return reverse("gallery:detail", kwargs={"pk": self.pk})
