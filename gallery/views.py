@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.decorators import login_required
 from .models import Artwork
 from .forms import LikeForm
 
@@ -17,7 +18,7 @@ class ArtworkDetailView(DetailView):
     template_name = "gallery/detail.html"
     context_object_name = "artwork"
 
-
+# @login_required
 def Like(req):
     form = LikeForm(req.POST or None)
     if form.is_valid():
