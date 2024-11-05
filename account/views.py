@@ -8,5 +8,8 @@ def signup(req):
         if form.is_valid():
             form.save()
             return redirect("login")
-    form = UserCreationForm()
-    return render(req, "account/signup.html", context={"form": UserCreationForm})
+        # else:
+        #     return render(req, "account/signup.html", context={"form": UserCreationForm, "erros": form.errors})
+    else:
+        form = UserCreationForm()
+    return render(req, "account/signup.html", context={"form": form})
