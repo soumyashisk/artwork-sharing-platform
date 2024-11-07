@@ -57,7 +57,7 @@ ROOT_URLCONF = "_core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["templates"],
+        "DIRS": ["templates", BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -124,3 +124,6 @@ STATICFILES_DIRS = [BASE_DIR / "_static"]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+LOGIN_REDIRECT_URL = "gallery:home"
+LOGIN_URL = "login"
+LOGOUT_REDIRECT_URL = "gallery:home"

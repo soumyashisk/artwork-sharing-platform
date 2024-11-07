@@ -36,35 +36,43 @@
         <h2 class="ml-auto md:mx-auto text-2xl">
           {% block nav_title %}{% endblock nav_title %}
         </h2>
-      </div>
-      <div class="flex gap-2 justify-center p-2">
-        {% if false %}
-        <a
-          href="#"
-          class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
-        >
-          Uploads
-        </a>
-        <a
-          href="#"
-          class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
-        >
-          Profile
-        </a>
-        {% else %}
-        <a
-          href="#"
-          class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
-        >
-          Login
-        </a>
-        <a
-          href="#"
-          class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
-        >
-          Sign Up
-        </a>
-        {% endif %}
+        <div class="flex gap-2 justify-center p-2">
+          {% if user.is_authenticated %}
+          <a
+            href="#"
+            class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
+          >
+            Uploads
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
+          >
+            Profile
+          </a>
+          <form action="{% url "logout" %}" method="post" class="inline-flex items-center bg-red-700 border-0 py-1 px-3 focus:outline-none hover:bg-red-800 rounded text-base">
+            {% csrf_token %}
+            <button
+              type="submit"
+            >
+              Logout
+            </button>
+          </form>
+          {% else %}
+          <a
+            href="{% url "login" %}"
+            class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
+          >
+            Login
+          </a>
+          <a
+            href="{% url "signup" %}"
+            class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
+          >
+            Sign Up
+          </a>
+          {% endif %}
+        </div>
       </div>
     </header>
     <section class="bg-gray-800 p-2">{% block content %}{% endblock content %}</section>

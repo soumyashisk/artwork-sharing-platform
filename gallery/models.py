@@ -17,8 +17,8 @@ class Artwork(models.Model):
     def get_absolute_url(self):
         return reverse("gallery:detail", kwargs={"pk": self.pk})
 
-class Like(models.Model):
-    artwork = models.ForeignKey(Artwork, on_delete=models.CASCADE)
+# class Like(models.Model):
+    # artwork = models.ForeignKey(Artwork, on_delete=models.CASCADE)
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
     # class Meta:
     #     unique_together = ('artwork', 'user')

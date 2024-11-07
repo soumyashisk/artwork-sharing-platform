@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from .models import Artwork
 from .forms import LikeForm
 
@@ -30,8 +30,6 @@ def Like(req):
             return render(
                 req, "gallery/like.html", context={"artwork": Artwork.objects.get(id=id)}
             )
-    # else:
-    #     return HttpResponse("Method Not Allow")
 
     return render(
         req, "gallery/like.html", context={"artwork": Artwork.objects.get(id=id)}
