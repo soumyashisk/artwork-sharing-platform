@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} {{ artwork.title }} {% endblock %}
-{% block nav_title %} Details {% endblock %}
+{% block title %} {{ artwork.title }} {% endblock title %}
+{% block nav_title %} Details {% endblock nav_title %}
 {% block content %}
 <div class="flex flex-col md:flex-row gap-2 p-2">
   <img class="md:w-1/2" src="{{ artwork.image.url }}" alt="" />
@@ -18,22 +18,7 @@
         </svg>
       </button>
     </form>
-    <div class="text-lg">1000 Views</div>
+    <p>Uploaded by {{ artwork.user.username }}</p>
   </div>
 </div>
-{% comment %} <div class="text-center w-full flex flex-col md:flex-row items-center gap-2">
-<img src="{{ artwork.image.url }}" alt="" />
-<div class="flex flex-col gap-2">
-  <div class="text-4xl text-white mx-auto">1928</div>
-  <div class="flex gap-2">
-    <h1>{{ artwork.title }}</h1>
-    <button class="size-10 p-1 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
-      <img src="{% static "up.svg" %}" alt="">
-    </button>
-    <button class="size-10 p-1 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
-      <img class="rotate-180" src="{% static "up.svg" %}" alt="">
-    </button>
-  </div>
-</div>
-</div> {% endcomment %}
-{% endblock %}
+{% endblock content %}
