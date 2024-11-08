@@ -2,13 +2,14 @@ from django.shortcuts import render, HttpResponse
 from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Artwork, Like
 from .forms import LikeForm
 
 
 class ArtworkListView(ListView):
-    # model = Artwork
     template_name = "gallery/index.html"
     queryset = Artwork.objects.order_by("-created_at")
     context_object_name = "artworks"
@@ -35,6 +36,15 @@ class ArtworkDetailView(DetailView):
     template_name = "gallery/detail.html"
     context_object_name = "artwork"
 
+
+class ArtworkCreateView(LoginRequiredMixin, CreateView):
+    model = Artwork
+    fields = ["title", "desc", "image"]
+    template_name = "gallery/artwork-form.html"
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
 
 @require_POST
 def LikeView(req):
