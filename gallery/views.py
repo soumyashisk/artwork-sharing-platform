@@ -72,8 +72,8 @@ def LikeView(req):
                     artwork.liked = False
 
                 artwork.save()
-
-            messages.warning(req, "Please log in to like posts.")
+            else:
+                messages.warning(req, "Please log in to like posts.")
 
             return render(
                 req,
