@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.decorators.http import require_POST
@@ -38,28 +39,37 @@ class ArtworkDetailView(DetailView):
 @require_POST
 def LikeView(req):
     form = LikeForm(req.POST or None)
-    if form.is_valid() and req.user.is_authenticated:
+    if form.is_valid():
         id = req.POST.get("id", None)
         if id is not None:
             try:
                 artwork = Artwork.objects.get(id=id)
             except Artwork.DoesNotExist:
-                return HttpResponse("Artwork with that id is not found.")
-            like, created = Like.objects.get_or_create(user=req.user, artwork=artwork)
+                return HttpResponse(status=404)
 
-            if created:
-                artwork.likes += 1
-                artwork.liked = True
-            else:
-                like.delete()
-                artwork.likes -= 1
-                artwork.liked = False
+            artwork.liked = False
+            if req.user.is_authenticated:
+                like, created = Like.objects.get_or_create(
+                    user=req.user, artwork=artwork
+                )
 
-            artwork.save()
+                if created:
+                    artwork.likes += 1
+                    artwork.liked = True
+                else:
+                    like.delete()
+                    artwork.likes -= 1
+                    artwork.liked = False
+
+                artwork.save()
+
+            messages.warning(req, "Please log in to like posts.")
+
             return render(
                 req,
                 "gallery/like.html",
                 context={"artwork": artwork},
             )
+
         else:
             return HttpResponse(status=404)
