@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Home {% endblock %}
-{% block nav_title %} Home {% endblock %}
+{% block title %} Manage {% endblock %}
+{% block nav_title %} Manage {% endblock %}
 {% block content %}
+  {% if artworks %}
   <div class="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mx-auto">
     {% for artwork in artworks %}
     <div class="relative aspect-square">
@@ -22,9 +23,17 @@
           <a href="{% url "gallery:detail" artwork.id %}" class="text-white px-4 py-2 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
             Details
           </a>
+          <form action="{% url "gallery:delete" artwork.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="text-white px-4 py-2 bg-red-600 border-0 focus:outline-none hover:bg-red-700 rounded-full">Delete</button>
+          </form>
         </div>
       </div>
     </div>
     {% endfor %}
-  </div>
+    </div>
+    <script src="{% static "script.js" %}"></script>
+  {% else %}
+    <h2 class="capitalize text-2xl text-white w-full text-center">no artworks found. click on the "upload" button to upload your artwork.</h2>
+  {% endif %}
 {% endblock %}
