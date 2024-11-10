@@ -13,14 +13,8 @@ from .forms import LikeForm
 class ArtworkListView(ListView):
     template_name = "gallery/index.html"
     context_object_name = "artworks"
-    view_mode = None
+    queryset = Artwork.objects.order_by("-created_at")
 
-    def get_queryset(self):
-        if self.view_mode == "created_by_user":
-            return Artwork.objects.filter(user=self.request.user).order_by("-created_at")
-        else:
-            return Artwork.objects.order_by("-created_at")        
-           
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -33,6 +27,28 @@ class ArtworkListView(ListView):
 
             for artwork in context["artworks"]:
                 artwork.liked = artwork.id in liked_artwork_ids
+
+        return context
+
+
+class ManageArtworkListView(LoginRequiredMixin, ListView):
+    template_name = "gallery/manage.html"
+    context_object_name = "artworks"
+
+    def get_queryset(self):
+        return Artwork.objects.filter(user=self.request.user).order_by("-created_at")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user = self.request.user
+
+        liked_artwork_ids = set(
+            Like.objects.filter(user=user).values_list("artwork_id", flat=True)
+        )
+
+        for artwork in context["artworks"]:
+            artwork.liked = artwork.id in liked_artwork_ids
 
         return context
 
@@ -78,12 +94,11 @@ class ArtworkUpdateView(LoginRequiredMixin, UpdateView):
 class ArtworkDeleteView(LoginRequiredMixin, DeleteView):
     model = Artwork
     template_name = "gallery/confirm-delete.html"
-    success_url = reverse_lazy("gallery:home")
+    success_url = reverse_lazy("gallery:manage")
 
     def dispatch(self, request, *args, **kwargs):
         artwork = self.get_object()
         if artwork.user != request.user and not request.user.is_superuser:
-            # return HttpResponse("<h1>You ain't the creator bruhh!</h1>")
             return redirect(reverse_lazy("login"))
 
         return super().dispatch(request, *args, **kwargs)
