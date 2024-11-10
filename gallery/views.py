@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Artwork, Like
@@ -12,9 +12,15 @@ from .forms import LikeForm
 
 class ArtworkListView(ListView):
     template_name = "gallery/index.html"
-    queryset = Artwork.objects.order_by("-created_at")
     context_object_name = "artworks"
+    view_mode = None
 
+    def get_queryset(self):
+        if self.view_mode == "created_by_user":
+            return Artwork.objects.filter(user=self.request.user).order_by("-created_at")
+        else:
+            return Artwork.objects.order_by("-created_at")        
+           
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
