@@ -1,8 +1,9 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Artwork, Like
@@ -39,7 +40,9 @@ class ArtworkDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         if self.request.user.is_authenticated:
-            context["artwork"].liked = Like.objects.filter(user=self.request.user, artwork=context["artwork"]).exists()
+            context["artwork"].liked = Like.objects.filter(
+                user=self.request.user, artwork=context["artwork"]
+            ).exists()
         else:
             context["artwork"].liked = False
 
@@ -49,11 +52,36 @@ class ArtworkDetailView(DetailView):
 class ArtworkCreateView(LoginRequiredMixin, CreateView):
     model = Artwork
     fields = ["title", "desc", "image"]
-    template_name = "gallery/artwork-form.html"
+    template_name = "gallery/create.html"
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
+
+
+class ArtworkUpdateView(LoginRequiredMixin, UpdateView):
+    model = Artwork
+    fields = ["title", "desc", "image"]
+    template_name = "gallery/update.html"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class ArtworkDeleteView(LoginRequiredMixin, DeleteView):
+    model = Artwork
+    template_name = "gallery/confirm-delete.html"
+    success_url = reverse_lazy("gallery:home")
+
+    def dispatch(self, request, *args, **kwargs):
+        artwork = self.get_object()
+        if artwork.user != request.user and not request.user.is_superuser:
+            # return HttpResponse("<h1>You ain't the creator bruhh!</h1>")
+            return redirect(reverse_lazy("login"))
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 @require_POST
 def LikeView(req):
