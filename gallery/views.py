@@ -17,7 +17,7 @@ class ArtworkListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         if self.request.user.is_authenticated:
             user = self.request.user
 
@@ -79,29 +79,31 @@ class ArtworkCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
         messages.error(self.request, "Invalid data provided.")
         return super().form_invalid(form)
 
     def get_success_url(self):
         messages.success(self.request, "Artwork Added Successfully!")
-        return reverse_lazy('gallery:detail', kwargs={'pk': self.object.pk}) # TODO: Try using get_absolute_url function
+        return self.object.get_absolute_url()
 
-# TODO: Artwork update view
+
 class ArtworkUpdateView(LoginRequiredMixin, UpdateView):
     model = Artwork
     fields = ["title", "desc", "image"]
     template_name = "gallery/update.html"
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
     def form_invalid(self, form):
         messages.error(self.request, "Invalid data provided.")
         return super().form_invalid(form)
 
+    def get_success_url(self):
+        messages.success(self.request, "Artwork Edited Successfully!")
+        return self.object.get_absolute_url()
 
+
+# TODO: Add delte confirmation
 class ArtworkDeleteView(LoginRequiredMixin, DeleteView):
     model = Artwork
     template_name = "gallery/confirm-delete.html"

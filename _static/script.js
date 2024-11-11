@@ -1,17 +1,3 @@
-var colWidth = $(".grid-item").width();
-
-window.onresize = function () {
-  colWidth = $(".grid-item").width();
-};
-
-var $grid = $(".masonry").masonry({
-  itemSelector: ".grid-item",
-  columnWidth: ".grid-item",
-  percentPosition: true,
-  gutter: 10,
-  fitWidth: true,
-});
-
 toastr.options = {
   closeButton: true,
   debug: false,

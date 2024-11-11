@@ -4,7 +4,7 @@
 {% block title %}Upload Artwork{% endblock title %}
 {% block nav_title %}Upload Artwork{% endblock nav_title %}
 {% block content %}
-<form class="container px-5 py-24 mx-auto flex" action="{% url "gallery:create" %}" method="post" enctype="multipart/form-data">
+<form class="container px-5 py-24 mx-auto flex" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="bg-gray-900 shadow-md rounded-lg p-8 flex flex-col mx-auto w-full mt-10 md:mt-0 relative z-10">
     <h2 class="text-white text-lg mb-1 font-medium title-font">Upload Artwork</h2>
@@ -19,7 +19,7 @@
         </div> 
         <div class="relative mb-4">
           <label for="{{ form.desc.name }}" class="leading-7 text-sm text-gray-400 capitalize">Description</label>
-          <textarea name="{{ form.desc.name }}" class="lg:h-60 w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></textarea>
+          <textarea name="{{ form.desc.name }}" class="lg:h-60 w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{% if form.instance.desc %}{{ form.desc.value }}{% endif %}</textarea>
           <div class="text-red-600">
           {{ form.desc.errors }}
           </div>
@@ -36,7 +36,8 @@
       </div>
     </div>
     <script>
-      function readURL(input) {
+      $("#imageUpload").change(function() {
+        let input = this;
         if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function(e) {
@@ -46,9 +47,6 @@
           }
           reader.readAsDataURL(input.files[0]);
         }
-      }
-      $("#imageUpload").change(function() {
-          readURL(this);
       });
       $("#imagePreview").click(function() {
         $("#imageUpload").trigger('click');

@@ -23,10 +23,15 @@
           <a href="{% url "gallery:detail" artwork.id %}" class="text-white px-4 py-2 bg-gray-800 border-0 focus:outline-none hover:bg-gray-700 rounded-full">
             Details
           </a>
-          <form action="{% url "gallery:delete" artwork.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="text-white px-4 py-2 bg-red-600 border-0 focus:outline-none hover:bg-red-700 rounded-full">Delete</button>
-          </form>
+          <div class="flex gap-2">
+            <a href="{% url "gallery:update" artwork.id %}" class="text-white px-4 py-2 bg-blue-800 border-0 focus:outline-none hover:bg-blue-700 rounded-full">
+              Edit
+            </a>
+            <form action="{% url "gallery:delete" artwork.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="text-white px-4 py-2 bg-red-800 border-0 focus:outline-none hover:bg-red-700 rounded-full">Delete</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
