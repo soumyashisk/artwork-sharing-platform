@@ -103,11 +103,8 @@ class ArtworkUpdateView(LoginRequiredMixin, UpdateView):
         return self.object.get_absolute_url()
 
 
-# TODO: Add delte confirmation
 class ArtworkDeleteView(LoginRequiredMixin, DeleteView):
     model = Artwork
-    template_name = "gallery/confirm-delete.html"
-    success_url = reverse_lazy("gallery:manage")
 
     def dispatch(self, request, *args, **kwargs):
         artwork = self.get_object()
@@ -115,6 +112,10 @@ class ArtworkDeleteView(LoginRequiredMixin, DeleteView):
             return redirect(reverse_lazy("login"))
 
         return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        messages.success(self.request, "Artwork Deleted Successfully!")
+        return reverse_lazy("gallery:manage")
 
 
 @require_POST

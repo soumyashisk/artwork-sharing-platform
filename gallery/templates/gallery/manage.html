@@ -27,10 +27,9 @@
             <a href="{% url "gallery:update" artwork.id %}" class="text-white px-4 py-2 bg-blue-800 border-0 focus:outline-none hover:bg-blue-700 rounded-full">
               Edit
             </a>
-            <form action="{% url "gallery:delete" artwork.id %}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="text-white px-4 py-2 bg-red-800 border-0 focus:outline-none hover:bg-red-700 rounded-full">Delete</button>
-            </form>
+            <button
+              onclick="confirm_deletion(`{% url "gallery:delete" artwork.id %}`)"
+              class="text-white px-4 py-2 bg-red-800 border-0 focus:outline-none hover:bg-red-700 rounded-full">Delete</button>
           </div>
         </div>
       </div>
@@ -38,6 +37,16 @@
     {% endfor %}
     </div>
     <script src="{% static "script.js" %}"></script>
+    <script>
+      function confirm_deletion(form_url) {
+        Swal.fire({
+          text: 'Do you want to continue?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: `<form action='${form_url}' method='post'>{% csrf_token %}<button type='submit'>Delete</button></form>`
+        })
+      }
+    </script>
   {% else %}
     <h2 class="capitalize text-2xl text-white w-full text-center">no artworks found. click on the "upload" button to upload your artwork.</h2>
   {% endif %}
