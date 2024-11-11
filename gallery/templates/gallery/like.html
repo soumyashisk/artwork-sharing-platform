@@ -28,10 +28,8 @@
     </svg>
   </button>
 </form>
-{% if messages %}
+{% if not user.is_authenticated %}
 <script>
-  {% for message in messages %}
-    alert("{{ message }}");
-  {% endfor %}
+    toastr.warning("Login to like posts");
 </script>
 {% endif %}
