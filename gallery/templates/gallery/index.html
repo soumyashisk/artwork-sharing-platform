@@ -3,6 +3,7 @@
 {% block title %} Home {% endblock %}
 {% block nav_title %} Home {% endblock %}
 {% block content %}
+  {% if artworks %}
   <div class="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mx-auto">
     {% for artwork in artworks %}
     <div class="relative aspect-square">
@@ -27,4 +28,7 @@
     </div>
     {% endfor %}
   </div>
+  {% else %}
+    <h4 class="text-white text-xl w-full text-center">No Artworks Found.</h4>
+  {% endif %}
 {% endblock %}
