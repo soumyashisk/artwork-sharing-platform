@@ -114,7 +114,7 @@ class ArtworkDeleteView(LoginRequiredMixin, DeleteView):
     def dispatch(self, request, *args, **kwargs):
         artwork = self.get_object()
         if artwork.user != request.user and not request.user.is_superuser:
-            return redirect(reverse_lazy("login"))
+            return redirect(reverse_lazy("account:login"))
 
         return super().dispatch(request, *args, **kwargs)
 

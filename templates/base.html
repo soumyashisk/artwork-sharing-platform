@@ -46,12 +46,12 @@
             Upload
           </a>
           <a
-            href="{% url "profile" user.username %}"
+            href="{% url "account:profile" user.username %}"
             class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
           >
             Profile
           </a>
-          <form action="{% url "logout" %}" method="post" class="inline-flex items-center bg-red-700 border-0 py-1 px-3 focus:outline-none hover:bg-red-800 rounded text-base">
+          <form action="{% url "account:logout" %}" method="post" class="inline-flex items-center bg-red-700 border-0 py-1 px-3 focus:outline-none hover:bg-red-800 rounded text-base">
             {% csrf_token %}
             <button
               type="submit"
@@ -61,13 +61,13 @@
           </form>
           {% else %}
           <a
-            href="{% url "login" %}"
+            href="{% url "account:login" %}"
             class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
           >
             Login
           </a>
           <a
-            href="{% url "signup" %}"
+            href="{% url "account:signup" %}"
             class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
           >
             Sign Up

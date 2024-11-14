@@ -6,16 +6,11 @@
   <h2 class="text-5xl">{{ profile.artist_name }}</h2>
   <h1 class="text-2xl">@{{ profile.user }}</h1>
   <h4 class="text-xl">{{ profile.bio }}</h4>
-  {% if user.is_authenticated %}
-  <a href="{% url "account:edit_profile" profile.user.username %}" class="text-white px-4 py-2 bg-blue-800 border-0 focus:outline-none hover:bg-blue-700 rounded-full">
-    Edit
-  </a>
-  {% endif %}
 </div>
 <div class="w-full border-b-2 mb-2"></div>
 {% if user.is_authenticated %}
-  <div hx-get="{% url "gallery:manage" %}" hx-trigger="load" hx-swap="outerHTML"></div>
+  <div hx-get="{% url "gallery:manage" %}" hx-trigger="load" hx-swap="outerHTML"  ></div>
 {% else %}
-  <div hx-get="{% url "gallery:list" %}" hx-trigger="load" hx-swap="outerHTML"></div>
+  <div hx-get="{% url "gallery:list" %}" hx-trigger="load" hx-swap="outerHTML"  ></div>
 {% endif %}
 {% endblock content %}

@@ -19,13 +19,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from account import views as account_views
-from django.contrib.auth.views import LoginView, LogoutView
+
 urlpatterns = [
     path("admin", admin.site.urls),
     path("", include("gallery.urls")),
-    path("signup", account_views.signup, name="signup"),
-    path("login", LoginView.as_view(template_name="account/login.html"), name="login"),
-    path("logout", LogoutView.as_view(), name="logout"),
-    path("profile/<str:username>", account_views.ProfileDetailView.as_view(), name="profile")
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path("", include("account.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
