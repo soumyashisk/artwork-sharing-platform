@@ -27,5 +27,5 @@ urlpatterns = [
     path("signup", account_views.signup, name="signup"),
     path("login", LoginView.as_view(template_name="account/login.html"), name="login"),
     path("logout", LogoutView.as_view(), name="logout"),
-    path("profile/<str:username>", account_views.ProfileDetailView.as_view(), name="signup"),
+    path("profile/<str:username>", account_views.ProfileDetailView.as_view(), name="profile")
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

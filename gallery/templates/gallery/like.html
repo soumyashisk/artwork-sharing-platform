@@ -1,8 +1,4 @@
-<form
-  class="flex flex-col w-fit gap-2"
-  hx-post="{% url 'gallery:like' %}"
-  hx-swap="innerHTML"
->
+<form id="like-form" class="flex flex-col w-fit gap-2" hx-post="{% url 'gallery:like' %}" hx-swap="innerHTML">
   {% csrf_token %}
   <input type="text" name="id" value="{{ artwork.id }}" hidden />
   <div class="text-4xl text-white mx-auto">{{ artwork.likes }}</div>

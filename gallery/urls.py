@@ -3,7 +3,8 @@ from . import views
 
 app_name = "gallery"
 urlpatterns = [
-    path("", views.ArtworkListView.as_view(), name="home"),
+    path("", views.HomeView.as_view(), name="home"),
+    path("list", views.ArtworkListView.as_view(), name="list"),
     path("<int:pk>", views.ArtworkDetailView.as_view(), name="detail"),
     path("add", views.ArtworkCreateView.as_view(), name="create"),
     path("<int:pk>/edit", views.ArtworkUpdateView.as_view(), name="update"),

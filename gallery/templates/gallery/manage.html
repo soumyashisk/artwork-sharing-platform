@@ -1,9 +1,5 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block title %} Manage {% endblock %}
-{% block nav_title %} Manage {% endblock %}
-{% block content %}
-  {% if artworks %}
+{% if artworks %}
   <div class="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mx-auto">
     {% for artwork in artworks %}
     <div class="relative aspect-square">
@@ -48,6 +44,5 @@
       }
     </script>
   {% else %}
-    <h2 class="capitalize text-2xl text-white w-full text-center">no artworks found. click on the "upload" button to upload your artwork.</h2>
-  {% endif %}
-{% endblock %}
+  <h2 class="capitalize text-2xl text-white w-full text-center">no artworks found. click on the "upload" button to upload your artwork.</h2>
+{% endif %}

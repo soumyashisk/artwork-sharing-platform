@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
+from django.contrib.auth.models import User
 from .models import Profile
-
 
 def signup(req):
     if req.method == "POST":
@@ -18,9 +18,10 @@ def signup(req):
 
 
 class ProfileDetailView(DetailView):
-    model = Profile
+    context_object_name = "profile"
     template_name = "account/profile.html"
 
     def get_object(self):
         username = self.kwargs.get("username")
-        return Profile.objects.get(username=username)
+        user = User.objects.get(username=username)
+        return Profile.objects.get(user=user)

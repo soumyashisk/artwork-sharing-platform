@@ -46,13 +46,7 @@
             Upload
           </a>
           <a
-            href="{% url "gallery:manage" %}"
-            class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
-          >
-            Manage
-          </a>
-          <a
-            href="#"
+            href="{% url "profile" user.username %}"
             class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base"
           >
             Profile

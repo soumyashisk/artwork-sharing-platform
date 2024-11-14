@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
+from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -10,8 +11,12 @@ from .models import Artwork, Like
 from .forms import LikeForm
 
 
-class ArtworkListView(ListView):
+class HomeView(TemplateView):
     template_name = "gallery/index.html"
+
+
+class ArtworkListView(ListView):
+    template_name = "gallery/list.html"
     context_object_name = "artworks"
     queryset = Artwork.objects.order_by("-created_at")
 

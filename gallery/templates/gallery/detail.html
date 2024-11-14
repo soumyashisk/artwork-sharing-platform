@@ -7,8 +7,8 @@
   <img class="md:w-1/2" src="{{ artwork.image.url }}" alt="" />
   <div class="md:w-1/2 flex flex-col gap-2 text-white">
     <h1 class="text-5xl">{{ artwork.title }}</h1>
-    <p class="text-xl">{{ artwork.desc }}</p>
-    <form class="flex flex-col w-fit gap-2" hx-post="{% url 'gallery:like' %}" hx-swap="innerHTML">
+    <p class="text-lg">Uploaded by <a class="text-blue-300 hover:underline" href="/profile/{{ artwork.user.username }}">{{ artwork.user.username }}</a></p>
+    <form id="like-form" class="flex flex-col w-fit gap-2" hx-post="{% url 'gallery:like' %}" hx-swap="innerHTML">
       {% csrf_token %}
       <input type="text" name="id" value="{{ artwork.id }}" hidden>
       <div class="text-4xl text-white mx-auto">{{ artwork.likes }}</div>
@@ -18,7 +18,8 @@
         </svg>
       </button>
     </form>
-    <p>Uploaded by {{ artwork.user.username }}</p>
+    <p class="text-xl">{{ artwork.desc }}</p>
   </div>
 </div>
+<style>#like-form{flex-direction: row-reverse;}</style>
 {% endblock content %}
