@@ -31,3 +31,9 @@ class ProfileDetailView(DetailView):
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     template_name = "account/edit-profile.html"
+    fields = ["image", "artist_name", "bio"]
+
+    def get_object(self):
+        username = self.kwargs.get("username")
+        user = User.objects.get(username=username)
+        return Profile.objects.get(user=user)

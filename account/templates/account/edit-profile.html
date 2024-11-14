@@ -1,16 +1,33 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="flex flex-col items-center gap-2 mb-2 text-white">
-  <img src="/{{ profile.image }}" class="rounded-full size-48 object-cover" />
-  <h2 class="text-5xl">{{ profile.artist_name }}</h2>
-  <h1 class="text-2xl">@{{ profile.user }}</h1>
-  <h4 class="text-xl">{{ profile.bio }}</h4>
-</div>
-<div class="w-full border-b-2 mb-2"></div>
-{% if user.is_authenticated %}
-  <div hx-get="{% url "gallery:manage" %}" hx-trigger="load" hx-swap="outerHTML"  ></div>
-{% else %}
-  <div hx-get="{% url "gallery:list" %}" hx-trigger="load" hx-swap="outerHTML"  ></div>
-{% endif %}
+<form class="flex flex-col items-center gap-2 mb-2 text-white" method="post">
+  {% csrf_token %}
+  <img id="imagePreview" src="/{{ profile.image }}" class="rounded-full size-48 object-cover" />
+  <input id="imageUpload" type="file" name="{{ form.image.name }}" accept="image/*" hidden>
+  <input name="artist_name" type="text" class="text-5xl bg-transparent" value="{{ profile.artist_name }}">
+  {{form.artist_name.errors}}
+  <textarea name="bio" class="text-xl text-white bg-transparent">{{ form.bio.value }}</textarea>
+  {{form.bio.errors}}
+  <button type="submit" class="text-white px-4 py-2 bg-yellow-800 border-0 focus:outline-none hover:bg-yellow-700 rounded-full">
+    Save
+  </button>
+</form>
+<script>
+  $("#imageUpload").change(function() {
+    let input = this;
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#imagePreview').attr("src", e.target.result);
+        $('#imagePreview').hide();
+        $('#imagePreview').fadeIn(650);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
+  $("#imagePreview").click(function() {
+    $("#imageUpload").trigger('click');
+  });
+</script>
 {% endblock content %}

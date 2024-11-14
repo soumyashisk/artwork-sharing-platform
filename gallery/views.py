@@ -120,7 +120,7 @@ class ArtworkDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         messages.success(self.request, "Artwork Deleted Successfully!")
-        return reverse_lazy("gallery:manage")
+        return reverse_lazy("account:profile")
 
 
 @require_POST
