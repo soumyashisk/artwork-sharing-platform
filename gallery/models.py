@@ -6,7 +6,7 @@ class Artwork(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     title = models.CharField(max_length=200)
     desc = models.TextField(max_length=200)
-    image = models.ImageField(upload_to="uploads/artworks/")
+    image = models.ImageField(upload_to="uploads/artworks/", default="static/profile-pic-placeholder.png")
     likes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
