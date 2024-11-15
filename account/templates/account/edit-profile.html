@@ -3,15 +3,26 @@
 {% block content %}
 <form class="flex flex-col items-center gap-2 mb-2 text-white" method="post">
   {% csrf_token %}
-  <img id="imagePreview" src="/{{ profile.image }}" class="rounded-full size-48 object-cover" />
-  <input id="imageUpload" type="file" name="{{ form.image.name }}" accept="image/*" hidden>
-  <input name="artist_name" type="text" class="text-5xl bg-transparent" value="{{ profile.artist_name }}">
+  <img id="imagePreview" src="/{{ form.image.value }}" class="rounded-full size-48 object-cover cursor-pointer" />
+  <div class="absolute size-48 grid place-items-center bg-opacity-40 bg-black rounded-full pointer-events-none text-xl">
+    <div class="bg-black bg-opacity-60 w-full text-center p-2">
+      Change Image
+    </div>
+  </div>
+  <input id="imageUpload" type="file" name="image" accept="image/*" hidden>
+  {{form.image.errors}}
+  <input name="artist_name" type="text" class="w-96 max-w-full border-2 border-white rounded-md text-center text-5xl bg-transparent" value="{{ form.artist_name.value }}">
   {{form.artist_name.errors}}
-  <textarea name="bio" class="text-xl text-white bg-transparent">{{ form.bio.value }}</textarea>
+  <textarea name="bio" class="w-96 max-w-full border-2 border-white rounded-md p-2 text-center text-xl text-white bg-transparent">{{ form.bio.value }}</textarea>
   {{form.bio.errors}}
-  <button type="submit" class="text-white px-4 py-2 bg-yellow-800 border-0 focus:outline-none hover:bg-yellow-700 rounded-full">
-    Save
-  </button>
+  <div class="flex gap-2">
+    <a href="{% url "account:profile" profile %}" type="submit" class="text-white px-4 py-2 bg-red-800 border-0 focus:outline-none hover:bg-red-700 rounded-full">
+      Cancel
+    </a>
+    <button type="submit" class="text-white px-4 py-2 bg-yellow-800 border-0 focus:outline-none hover:bg-yellow-700 rounded-full">
+      Save
+    </button>
+  </div>
 </form>
 <script>
   $("#imageUpload").change(function() {
