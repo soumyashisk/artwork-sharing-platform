@@ -44,5 +44,5 @@
       }
     </script>
   {% else %}
-  <h2 class="capitalize text-2xl text-white w-full text-center">no artworks found. click on the "upload" button to upload your artwork.</h2>
+  <h2 class="capitalize text-2xl text-white w-full text-center">no artworks found. {% if is_owner %}click on the "upload" button to upload your artwork.{% endif %}</h2>
 {% endif %}
